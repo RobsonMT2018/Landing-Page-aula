@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHTML | Aulas e Tutoriais de Programação</title>
+    <!-- Fonte Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #cccdd1;
+            --card-bg: rgb(41, 68, 83);
+            --border-light: rgba(255, 255, 255, 0.12);
+            --orange-primary: #f97316; /* Laranja HTML5 */
+            --cyan-primary: #00d2ff;   /* Azul Tech */
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(249, 115, 22, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.15) 0%, transparent 45%);
+            background-attachment: fixed;
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 28px 18px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange-primary), var(--cyan-primary));
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .avatar-container {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 12px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.35);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-header h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .profile-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .promo-banner {
+            width: 100%;
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.15), rgba(0, 210, 255, 0.15));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-white);
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .promo-banner:hover {
+            border-color: var(--orange-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.2);
+        }
+
+        .banner-tag {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--orange-primary);
+            padding: 4px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .banner-title {
+            font-size: 13px;
+            font-weight: 700;
+            flex: 1;
+            text-align: left;
+        }
+
+        .content-grid {
+            display: flex;
+            gap: 24px;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .side-image-box {
+            display: none;
+            flex: 0 0 280px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .side-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .links-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 18px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-white);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: var(--orange-primary);
+            transform: translateX(4px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.18);
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .link-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            font-size: 18px;
+            color: var(--orange-primary);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .link-item:hover .link-icon {
+            background: linear-gradient(135deg, var(--orange-primary), #c2410c);
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .link-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .link-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .link-desc {
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        .link-arrow {
+            color: var(--text-muted);
+            font-size: 13px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .link-item:hover .link-arrow {
+            color: var(--orange-primary);
+            transform: translateX(3px);
+        }
+
+        /* NOVA SEÇÃO: CONTEÚDOS E AULAS EM DESTAQUE */
+        .featured-section {
+            margin-top: 36px;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-white);
+            text-align: left;
+        }
+
+        .section-title i {
+            color: var(--orange-primary);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .videos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-white);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            border-color: var(--orange-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.2);
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            background: #1e293b;
+        }
+
+        .video-info {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+
+        .video-title {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .video-views {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .card-footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            color: #ffffff;
+            background: var(--orange-primary);
+            border-color: var(--orange-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(249, 115, 22, 0.4);
+        }
+
+        .domain-tag {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        @media (min-width: 601px) {
+            body { padding: 24px; }
+            .main-card { padding: 36px 28px; border-radius: 28px; }
+            .avatar-container { width: 108px; height: 108px; }
+            .profile-header h1 { font-size: 25px; }
+            .profile-header p { font-size: 14px; }
+            .banner-title { font-size: 14px; }
+            .link-title { font-size: 15px; }
+            .link-desc { font-size: 12px; }
+        }
+
+        @media (min-width: 900px) {
+            body { padding: 40px 20px; }
+            .main-card { padding: 48px 40px; border-radius: 32px; }
+            .side-image-box { display: block; }
+            .links-list { gap: 14px; }
+            .link-item { padding: 16px 22px; }
+            .link-icon { width: 46px; height: 46px; font-size: 20px; }
+            .link-title { font-size: 16px; }
+            .link-desc { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="main-card">
+            
+            <!-- Cabeçalho -->
+            <header class="profile-header">
+                <div class="avatar-container">
+                    <img src="data:image/png;base64,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" alt="DevHTML" class="avatar">
+                </div>
+                <h1>DevHTML | Aulas</h1>
+                <p>Professor de Programação & Criador de Conteúdo Web</p>
+            </header>
+
+            <!-- Banner Promocional -->
+            <a href="https://youtube.com" target="_blank" class="promo-banner">
+                <span class="banner-tag">Ao Vivo</span>
+                <span class="banner-title">Maratona HTML5 do Zero ao Projeto Real — Assista</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <!-- Conteúdo Principal (Foto Lateral + Links) -->
+            <div class="content-grid">
+                
+                <!-- Foto Portrait Lateral -->
+                <div class="side-image-box">
+                    <img src="https://img.magnific.com/vetores-premium/conceito-de-engenheiros-devops-desenhado-a-mao-ilustracao-vetorial-plana-de-desenho-animado-isolada-em-um-fundo-branco-livro-de-desenho_218712-165.jpg" alt="Retrato Programador">
+                </div>
+
+                <!-- Lista de Links -->
+                <div class="links-list">
+                    <a href="https://youtube.com" target="_blank" class="link-item">
+                        <div class="link-content">
+                            <div class="link-icon"><i class="fa-brands fa-youtube"></i></div>
+                            <div class="link-info">
+                                <span class="link-title">Canal do YouTube</span>
+                                <span class="link-desc">Acesse centenas de tutoriais gratuitos</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right link-arrow"></i>
+                    </a>
+
+                    <a href="#" target="_blank" class="link-item">
+                        <div class="link-content">
+                            <div class="link-icon"><i class="fa-solid fa-code"></i></div>
+                            <div class="link-info">
+                                <span class="link-title">Repositório de Código (GitHub)</span>
+                                <span class="link-desc">Baixe o código fonte das aulas</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right link-arrow"></i>
+                    </a>
+
+                    <a href="#" target="_blank" class="link-item">
+                        <div class="link-content">
+                            <div class="link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="link-info">
+                                <span class="link-title">Curso Completo Front-End</span>
+                                <span class="link-desc">Domine HTML, CSS e JavaScript moderno</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right link-arrow"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- SEÇÃO DE VÍDEOS / AULAS EM DESTAQUE -->
+            <div class="featured-section">
+                <h3 class="section-title"><i class="fa-solid fa-fire"></i> Aulas e Tutoriais em Destaque</h3>
+                <div class="videos-grid">
+                    
+                    <!-- Vídeo 1 -->
+                    <a href="https://youtube.com" target="_blank" class="video-card">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=500&auto=format&fit=crop" alt="Aula HTML" class="video-thumb">
+                        <div class="video-info">
+                            <span class="video-title">HTML5 do Zero: Estrutura Básica Explicada</span>
+                            <span class="video-views"><i class="fa-brands fa-youtube text-orange-500"></i> Assistir aula</span>
+                        </div>
+                    </a>
+
+                    <!-- Vídeo 2 -->
+                    <a href="https://youtube.com" target="_blank" class="video-card">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=500&auto=format&fit=crop" alt="Aula Formulários" class="video-thumb">
+                        <div class="video-info">
+                            <span class="video-title">Criando Formulários Profissionais com HTML</span>
+                            <span class="video-views"><i class="fa-brands fa-youtube text-orange-500"></i> Assistir aula</span>
+                        </div>
+                    </a>
+
+                    <!-- Vídeo 3 -->
+                    <a href="https://youtube.com" target="_blank" class="video-card">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=500&auto=format&fit=crop" alt="Projeto Prático" class="video-thumb">
+                        <div class="video-info">
+                            <span class="video-title">Como Centralizar div e Alinhar Elementos</span>
+                            <span class="video-views"><i class="fa-brands fa-youtube text-orange-500"></i> Assistir aula</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Rodapé -->
+            <footer class="card-footer">
+                <div class="social-links">
+                    <a href="#" class="social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-btn" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                </div>
+                <span class="domain-tag">devhtml.com.br</span>
+            </footer>
+
+        </div>
+    </div>
+
+</body>
+</html>
