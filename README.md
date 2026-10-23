@@ -2,7 +2,8 @@
 
 Uma **Landing Page** moderna e responsiva no estilo *Linktree*, desenvolvida para centralizar links de cursos, vídeos do YouTube, redes sociais e conteúdos em destaque sobre desenvolvimento Front-End.
 
-![Preview da Landing Page](https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png)
+<img width="2503" height="1277" alt="image" src="https://github.com/user-attachments/assets/904024a0-893f-45a3-8015-396c40ce4ac6" />
+
 
 ---
 
